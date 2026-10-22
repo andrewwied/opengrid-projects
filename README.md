@@ -4,12 +4,65 @@ A place to store my OpenSCAD models for openGrid.
 
 ## Quick Setup
 
-To generate the models locally, download the repository and install **OpenSCAD** and the **BOSL2 library** on your computer. This is faster and more reliable than rendering online. However, if you prefer a simpler method, you can just use the customizer on the MakerWorld model pages.
+To generate the models locally, use the managed command-line workflow below. It downloads the required OpenSCAD snapshot and BOSL2 library into the project. If you prefer manual setup, install **OpenSCAD** and the **BOSL2 library** yourself. Either local approach is faster and more reliable than rendering online. However, if you prefer a simpler method, you can just use the customizer on the MakerWorld model pages.
 
 - **OpenSCAD Snapshot:** The stable version is outdated. Use the Snapshot version here: [openscad.org/downloads.html#snapshots](https://openscad.org/downloads.html#snapshots)
 - **BOSL2 Library:** Files and installation instructions can be found here: [github.com/BelfrySCAD/BOSL2](https://github.com/BelfrySCAD/BOSL2)
 
 After installing OpenSCAD, go to **Edit -> Preferences -> Advanced** and ensure the 3D Rendering Backend is set to **"Manifold."** This significantly shortens rendering times.
+## Managed Command-Line Builds
+
+The project can download its own pinned build tools, so the managed workflow does **not** require Python, OpenSCAD, BOSL2, or a global font installation. Tool downloads are checksum-verified and stored in `.tools/`, which is ignored by Git. Existing installed tools and shell settings are not changed.
+
+### Windows
+
+Use PowerShell from the repository root:
+
+```powershell
+.\build.ps1 setup
+.\build.ps1 doctor
+.\build.ps1 list
+.\build.ps1 build coin_hex_bit --format stl 3mf
+.\build.ps1 build openconnect_sturdy_hook --preset long-hook --format stl 3mf
+.\build.ps1 build openconnect_drawer --part shell --format stl 3mf
+```
+
+The first build will also prepare the required tools. Add `--offline` before the command to prohibit downloads, for example:
+
+```powershell
+.\build.ps1 --offline build coin_hex_bit --format stl
+```
+
+Use `--set NAME=OPENSCAD_EXPRESSION` to override a parameter without editing a source file:
+
+```powershell
+.\build.ps1 build openconnect_sturdy_hook --format stl --set hook_length=60
+```
+
+Outputs are written below `build/<model>/<preset-or-default>/<part>/`. OpenSCAD diagnostics are printed during each build and recorded in `provenance.json` alongside the source, effective parameters, pinned tool versions, and Git revision. Add `--strict` to fail a build when OpenSCAD emits any warning. STL uses millimeters by convention; 3MF explicitly stores millimeter geometry. The 3MF output is portable geometry only—it does not contain printer, filament, or slicer settings.
+
+### macOS and Linux
+
+The shared build CLI can be run through Bash:
+
+```bash
+bash ./build.sh list
+bash ./build.sh build coin_hex_bit --format stl 3mf
+```
+
+The project-managed toolchain is currently verified on Windows x64 only. The Bash launcher currently requires `python3`; portable OpenSCAD/Python acquisition for macOS and Linux is planned but not yet verified. Do not treat those platforms as supported until they are tested and added to `tools/tool-lock.json`.
+
+### Pinned tools and local fonts
+
+`tools/tool-lock.json` records exact URLs, revisions, and SHA-256 hashes for the managed Windows toolchain. The initial lock uses an OpenSCAD snapshot with the Manifold backend, BOSL2, and local Noto/Merriweather font files. The build sets project-local OpenSCAD library and font paths so it does not depend on an installed BOSL2 copy. `setup` reuses verified downloads; change the lock file deliberately to upgrade a tool.
+
+## Fusion and Solid Model Exports
+
+STL and 3MF builds do not need Autodesk Fusion.
+
+Fusion `.f3d` archives must be created by Fusion itself. Fusion must be separately installed, licensed, signed in, and running on a supported Windows or macOS computer when its in-application export script is used. This repository does not download, install, or license Fusion.
+
+OpenSCAD exports meshes. Importing an STL or 3MF into Fusion and saving it as an `.f3d` file does **not** recreate editable sketches, dimensions, or feature history. The planned Fusion workflow will first validate conversion to an editable solid, then save that solid as F3D. Until that validation is complete, use STL/3MF for printing and treat Fusion conversion as experimental.
 
 ## [openConnect](https://www.printables.com/model/1559478-openconnect-opengrids-own-connector-system) Models
 

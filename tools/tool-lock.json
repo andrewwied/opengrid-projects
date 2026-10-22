@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "python": {
+    "windows-x86_64": {
+      "version": "3.12.10",
+      "url": "https://www.python.org/ftp/python/3.12.10/python-3.12.10-embed-amd64.zip",
+      "sha256": "4acbed6dd1c744b0376e3b1cf57ce906f9dc9e95e68824584c8099a63025a3c3"
+    }
+  },
+  "openscad": {
+    "windows-x86_64": {
+      "version": "2026.10.18",
+      "url": "https://files.openscad.org/snapshots/OpenSCAD-2026.10.18-x86-64.zip",
+      "sha256": "4184c10432a71cf740c79702b17b5f638a77cc18c9e4123ee18ad3b13522cdfb"
+    }
+  },
+  "bosl2": {
+    "revision": "dd79b2274c2322ad8ae55c991e4ecd427c05f652",
+    "url": "https://github.com/BelfrySCAD/BOSL2/archive/dd79b2274c2322ad8ae55c991e4ecd427c05f652.zip",
+    "sha256": "d61993db03ca823ce6501a10de8909da4151624feec9eada43d7ec0d62c0bf28"
+  },
+  "fonts": [
+    {
+      "filename": "NotoSans-Variable.ttf",
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosans/NotoSans%5Bwdth,wght%5D.ttf",
+      "sha256": "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d"
+    },
+    {
+      "filename": "NotoColorEmoji-WindowsCompatible.ttf",
+      "url": "https://raw.githubusercontent.com/googlefonts/noto-emoji/main/2D/fonts/NotoColorEmoji_WindowsCompatible.ttf",
+      "sha256": "2c7ede2f5438f9c1da098778bd681535933a345334008bb03fc51119f6b1cd72"
+    },
+    {
+      "filename": "MerriweatherSans-Bold.ttf",
+      "url": "https://raw.githubusercontent.com/SorkinType/Merriweather-Sans/master/fonts/ttf/MerriweatherSans-Bold.ttf",
+      "sha256": "94ac9ad8fc7decbf9108b2fd532dafc34747c3fb0a43adc96d0182ff9242b2be"
+    }
+  ]
+}

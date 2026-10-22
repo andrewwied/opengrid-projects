@@ -127,8 +127,8 @@ slot_edge_bridge_min_width = 0.8; //0.01
 slot_edge_wall_min_width = 0.6; //0.01
 
 /*[Hidden]*/
-include <BOSL2/walls.scad>
 include <lib/opengrid_base.scad>
+include <BOSL2/walls.scad>
 use <lib/openconnect_lib.scad>
 $fa = 1;
 $fs = 0.4;
